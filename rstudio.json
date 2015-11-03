@@ -1,0 +1,101 @@
+{
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": "",
+        "ami": "ami-cf3c21ff",
+        "spot_price": "0.15"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "us-west-2",
+            "source_ami": "{{user `ami`}}",
+            "instance_type": "m4.2xlarge",
+            "ssh_username": "ubuntu",
+            "ami_name": "rstudio-training",
+            "ami_description": "Packed image for Rstudio Server",
+            "associate_public_ip_address": true,
+            "spot_price": "{{user `spot_price`}}",
+            "spot_price_auto_product": "Linux/UNIX (Amazon VPC)",
+            "subnet_id": "subnet-835054f7",
+            "availability_zone": "us-west-2a",
+            "vpc_id": "vpc-d07f66b2",
+            "user_data_file": "aws_user_data.sh",
+            "force_deregister": true,
+            "run_tags": {
+              "project": "rusers"
+            },
+            "tags": {
+              "project": "rusers",
+              "Name": "RStudio Server"
+            }
+        }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [
+          "sudo mkdir -p /etc/chef && sudo chown -R ubuntu:ubuntu /etc/chef",
+          "sudo mkdir -p /tmp/packer-chef-client && sudo chown -R root:root /tmp/packer-chef-client"
+         ]
+      },
+      {
+        "type": "file",
+        "source": "{{pwd}}/cookbooks",
+        "destination": "/etc/chef/cookbooks"
+      },
+      {
+        "type": "file",
+        "source": "{{pwd}}/data_bags",
+        "destination": "/etc/chef/data_bags"
+      },
+      {
+        "type": "chef-client",
+        "execute_command": "cd /etc/chef && sudo chef-client --local-mode --no-color -c /tmp/packer-chef-client/client.rb -j /tmp/packer-chef-client/first-boot.json",
+        "server_url": "http://localhost:8889",
+        "skip_clean_client": true,
+        "skip_clean_node": true,
+        "run_list": [
+                "recipe[sch-base::default]",
+                "recipe[sch-trainingusers::default]",
+                "recipe[git::default]",
+                "recipe[curl::libcurl]",
+                "recipe[libxml2::default]",
+                "recipe[r::default]",
+                "recipe[rstudio::cran]",
+                "recipe[rstudio::server]"
+            ],
+            "json": {
+                "r": {
+                    "cran_mirror": "https://cran.fhcrc.org/"
+                },
+                "rstudio": {
+                    "cran": {
+                        "packages": [
+                            "dplyr",
+                            "data.table",
+                            "ggplot2",
+                            "scales",
+                            "tidyr",
+                            "caret",
+                            "knitr",
+                            "binom",
+                            "rmarkdown",
+                            "httr",
+                            "harvest",
+                            "readr",
+                            "devtools",
+                            "readxl"
+                        ]
+                    },
+                    "server": {
+                        "www_port": 8080,
+                        "www_address": "0.0.0.0"
+                    }
+                }
+            }
+        }
+    ]
+}

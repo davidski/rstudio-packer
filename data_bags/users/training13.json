@@ -1,0 +1,8 @@
+{
+  "id": "training13",
+  "password": "$1$wRWIrNyM$n8IAdnBizvzImP6Uz2DKg/",
+  "shell": "\/bin\/bash",
+  "comment": "Training user", 
+  "groups": [ "training" ],
+  "action": [ "create" ]
+}
