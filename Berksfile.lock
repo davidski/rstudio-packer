@@ -1,87 +1,49 @@
 DEPENDENCIES
-  apt
-    git: git://github.com/opscode-cookbooks/apt.git
-    revision: 1e53c631703909ee464adabd210d2e6b631928db
-    tag: v2.3.0
-  chef-sugar (~> 3.1)
-  curl
-  git
-  libxml2
-  nginx
   r
-    git: git://github.com/davidski/cookbook-r.git
-    revision: 3a1322469f45d3750ca216a1323955099722d96b
-    branch: ark_fix
+    git: https://github.com/davidski/chef-r.git
+    revision: 0297086c9e2d3fe2de43484ed007dad8e8a52294
+    branch: chef14
   rstudio
-    git: git://github.com/davidski/rstudio-chef.git
-    revision: 935ca6f8879b46c40fdbdffd39a0c2c558e7b863
+    git: https://github.com/davidski/chef-rstudio.git
+    revision: 57de360e1d3afdb05dfc4c795464b54acb449002
     branch: refactor
-  sch-base
-    git: git://github.com/sch-cism/sch-base.git
-    revision: 10306274b89a0d2aa6a351309b20fb900003924a
   sch-trainingusers
-    git: git://github.com/SCH-CISM/sch-trainingusers.git
-    revision: 7dd0d1f1e31dcbc67c6284f5eda958439503b0e3
+    git: https://github.com/SCH-CISM/sch-trainingusers.git
+    revision: bc798892c137e9eef852b334961baff2cea35ff2
 
 GRAPH
-  7-zip (1.0.2)
-    windows (>= 1.2.2)
-  apt (2.3.0)
-  ark (0.9.0)
-    7-zip (>= 0.0.0)
-    windows (>= 0.0.0)
-  bluepill (2.3.1)
-    rsyslog (>= 0.0.0)
-  build-essential (2.2.3)
-  chef-sugar (3.1.1)
-  chef_handler (1.2.0)
-  curl (2.0.1)
-  dmg (2.2.2)
-  git (4.3.4)
+  apt (7.1.1)
+  ark (4.0.0)
     build-essential (>= 0.0.0)
-    dmg (>= 0.0.0)
-    windows (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+  build-essential (8.2.1)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  chef-sugar (5.0.0)
+  mingw (2.1.0)
+    seven_zip (>= 0.0.0)
+  nginx (9.0.0)
+    build-essential (>= 5.0)
+    ohai (>= 4.1.0)
     yum-epel (>= 0.0.0)
-  htop (2.0.0)
-    yum-repoforge (>= 0.0.0)
-  libxml2 (0.1.1)
-    apt (>= 0.0.0)
-    yum (>= 0.0.0)
-  nginx (2.7.6)
-    apt (~> 2.2)
-    bluepill (~> 2.3)
-    build-essential (~> 2.0)
-    ohai (~> 2.0)
-    runit (~> 1.2)
-    yum-epel (~> 0.3)
-  ohai (2.0.1)
-  packagecloud (0.1.0)
-  r (0.3.0)
+  ohai (5.2.5)
+  r (0.4.0)
     apt (>= 0.0.0)
     ark (>= 0.0.0)
     build-essential (>= 0.0.0)
     readline (>= 0.0.0)
+    yum-epel (>= 2.0.0)
   readline (0.0.5)
-  rstudio (0.3.0)
+  rstudio (0.5.0)
     apt (>= 0.0.0)
     chef-sugar (>= 0.0.0)
     nginx (>= 0.0.0)
-    r (>= 0.0.0)
+    r (~> 0.4.0)
     yum-epel (>= 0.0.0)
-  rsyslog (2.1.0)
-  runit (1.7.2)
-    packagecloud (>= 0.0.0)
-  sch-base (0.1.0)
-    htop (>= 1.1.0)
-    yum-repoforge (>= 0.0.0)
   sch-trainingusers (0.1.0)
     users (>= 0.0.0)
-  users (1.8.2)
-  windows (1.38.1)
-    chef_handler (>= 0.0.0)
-  yum (3.7.1)
-  yum-epel (0.6.2)
-    yum (~> 3.2)
-  yum-repoforge (0.5.3)
-    yum (~> 3.2)
-    yum-epel (>= 0.0.0)
+  seven_zip (3.1.0)
+    windows (>= 0.0.0)
+  users (5.4.0)
+  windows (5.2.3)
+  yum-epel (3.3.0)
